@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Therapy App{% endblock %}
+
+{% block content %}
+<section class="bg-white border rounded-2 p-4">
+  <h1 class="h3">Dashboard</h1>
+  <p class="mb-0 text-secondary">
+    Vítejte, {{ user.get_full_name|default:user.username }}. Role účtu: {{ user.role }}.
+  </p>
+</section>
+{% endblock %}

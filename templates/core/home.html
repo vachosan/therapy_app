@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Therapy App{% endblock %}
+
+{% block content %}
+<section class="bg-white border rounded-2 p-4">
+  <h1 class="h3">Therapy App</h1>
+  <p class="mb-3 text-secondary">
+    Základ webové aplikace pro terapeuty a klienty.
+  </p>
+  {% if user.is_authenticated %}
+    <a class="btn btn-primary" href="{% url 'core:dashboard' %}">Otevřít dashboard</a>
+  {% else %}
+    <a class="btn btn-primary" href="{% url 'accounts:register' %}">Registrovat klienta</a>
+    <a class="btn btn-outline-secondary ms-2" href="{% url 'accounts:login' %}">Přihlásit</a>
+  {% endif %}
+</section>
+{% endblock %}
