@@ -25,8 +25,10 @@
         <dt class="col-sm-4">Noví klienti</dt>
         <dd class="col-sm-8">{% if user.therapist_profile.accepts_new_clients %}Přijímá nové klienty{% else %}Nepřijímá nové klienty{% endif %}</dd>
       </dl>
+      <a class="btn btn-outline-primary mt-3" href="{% url 'core:therapist_profile_edit' %}">Upravit profil</a>
     {% else %}
-      <p class="mb-0 text-secondary">Profil terapeuta zatím nebyl vytvořen.</p>
+      <p class="text-secondary">Profil terapeuta zatím nebyl vytvořen.</p>
+      <a class="btn btn-primary" href="{% url 'core:therapist_profile_edit' %}">Vytvořit profil</a>
     {% endif %}
   {% elif user.role == user.Role.ADMIN %}
     <h1 class="h3">Administrátorský dashboard</h1>
