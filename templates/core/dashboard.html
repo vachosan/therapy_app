@@ -4,9 +4,40 @@
 
 {% block content %}
 <section class="bg-white border rounded-2 p-4">
-  <h1 class="h3">Dashboard</h1>
-  <p class="mb-0 text-secondary">
-    Vítejte, {{ user.get_full_name|default:user.username }}. Role účtu: {{ user.role }}.
-  </p>
+  {% if user.role == user.Role.CLIENT %}
+    <h1 class="h3">Klientský dashboard</h1>
+    <p class="mb-0 text-secondary">
+      Vítejte, {{ user.get_full_name|default:user.username }}. Role účtu: {{ user.get_role_display }}.
+    </p>
+  {% elif user.role == user.Role.THERAPIST %}
+    <h1 class="h3">Terapeutský dashboard</h1>
+    <p class="text-secondary">
+      Vítejte, {{ user.get_full_name|default:user.username }}. Role účtu: {{ user.get_role_display }}.
+    </p>
+    {% if user.therapist_profile %}
+      <dl class="row mb-0">
+        <dt class="col-sm-4">Zobrazované jméno</dt>
+        <dd class="col-sm-8">{{ user.therapist_profile.display_name }}</dd>
+        <dt class="col-sm-4">Specializace</dt>
+        <dd class="col-sm-8">{{ user.therapist_profile.specialization|default:"Neuvedeno" }}</dd>
+        <dt class="col-sm-4">Ověření</dt>
+        <dd class="col-sm-8">{% if user.therapist_profile.is_verified %}Ověřený profil{% else %}Neověřený profil{% endif %}</dd>
+        <dt class="col-sm-4">Noví klienti</dt>
+        <dd class="col-sm-8">{% if user.therapist_profile.accepts_new_clients %}Přijímá nové klienty{% else %}Nepřijímá nové klienty{% endif %}</dd>
+      </dl>
+    {% else %}
+      <p class="mb-0 text-secondary">Profil terapeuta zatím nebyl vytvořen.</p>
+    {% endif %}
+  {% elif user.role == user.Role.ADMIN %}
+    <h1 class="h3">Administrátorský dashboard</h1>
+    <p class="mb-0 text-secondary">
+      Vítejte, {{ user.get_full_name|default:user.username }}. Role účtu: {{ user.get_role_display }}.
+    </p>
+  {% else %}
+    <h1 class="h3">Dashboard</h1>
+    <p class="mb-0 text-secondary">
+      Vítejte, {{ user.get_full_name|default:user.username }}.
+    </p>
+  {% endif %}
 </section>
 {% endblock %}

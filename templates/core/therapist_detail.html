@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ therapist.display_name }} | Therapy App{% endblock %}
+
+{% block content %}
+<article class="bg-white border rounded-2 p-4">
+  <h1 class="h3">{{ therapist.display_name }}</h1>
+  <p class="text-secondary">{{ therapist.specialization|default:"Specializace neuvedena" }}</p>
+  <p>
+    {% if therapist.accepts_new_clients %}
+      Přijímá nové klienty
+    {% else %}
+      Nepřijímá nové klienty
+    {% endif %}
+  </p>
+  <div class="mt-4">
+    <h2 class="h5">O terapeutovi</h2>
+    <p class="mb-0">{{ therapist.bio|default:"Bio zatím není vyplněné." }}</p>
+  </div>
+</article>
+{% endblock %}
